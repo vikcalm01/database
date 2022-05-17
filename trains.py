@@ -10,7 +10,20 @@ def create_tables():
     #TODO1: add all tables, one commit per adding one table
     #TODO4: (optional for this task) add foreign keys
     conn.commit()
-    conn.close()  
+    
+    conn.execute('''CREATE TABLE clients
+            (
+            client_id INTEGER PRIMARY KEY NOT NULL,
+            username TEXT NOT NULL,
+            password INTEGER NOT NULL,
+            email INTEGER NOT NULL
+            );''')
+    #TODO1: add all tables, one commit per adding one table
+    #TODO4: (optional for this task) add foreign keys
+    conn.commit()    
+    conn.close() 
+    
+    
 
 def fill_locomotive_types():
     conn = sqlite3.connect('railways.db')
@@ -61,3 +74,4 @@ ticket_id client_document_id rpt_from rpt_to carriage_type_id carriage_no place_
 ("1", "ioann (Никулин Иван Васильевич, паспорт #123)", "Павелецкая (Москва) на маршруте Павелецкая - Владивосток, прибытие в 10:00:00 в соответствии с Москва-Владивосток утро", "Владивосток (Владивосток) на маршруте Павелецкая - Владивосток, прибытие в 11:00:00 в соответствии с Москва-Владивосток утро", "пассажирский", "1", "10", "Поезд 1 на Москва-Владивосток утро"), 
 ("2", "ioann (Никулин Иван Васильевич, паспорт #123)", "Павелецкая (Москва) на маршруте Москва - Санкт-Петербург, прибытие в 11:00:00 в соответствии с Москва-Спб утро", "Минск-Южный (Минск) на маршруте Москва - Санкт-Петербург, прибытие в 13:00:00 в соответствии с Москва-Спб утро", "вагон-ресторан", "2", "33", "Поезд 1 на Москва-Владивосток утро")
 '''
+
