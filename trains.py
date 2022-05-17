@@ -25,6 +25,24 @@ def create_tables():
     
     
 
+def fill_client():
+    conn = sqlite3.connect('railways.db')
+    conn.execute('''insert into client(username) values('visuly');''')
+    conn.execute('''insert into client(username) values('dotatk');''')
+    conn.execute('''insert into client(username) values('opa');''')
+    
+    conn.execute('''insert into client(password) values('route12');''')
+    conn.execute('''insert into client(password) values('rdnh1234');''')
+    conn.execute('''insert into client(password) values('yev45');''')
+    
+    conn.execute('''insert into client(email) values('visuly@gmail.com');''')
+    conn.execute('''insert into client(email) values('dotatk@mail.ru');''')
+    conn.execute('''insert into client(email) values('opa@yandex.ru');''')
+    
+    conn.commit()
+    conn.close()
+    
+    
 def fill_locomotive_types():
     conn = sqlite3.connect('railways.db')
     conn.execute('''insert into locomotive_types(type_name) values('паровоз');''')
