@@ -20,6 +20,15 @@ def create_tables():
             );''')
     #TODO1: add all tables, one commit per adding one table
     #TODO4: (optional for this task) add foreign keys
+    conn.commit() 
+    
+    conn.execute('''CREATE TABLE genders
+            (
+            gender_id INTEGER PRIMARY KEY NOT NULL,
+            gender_name TEXT NOT NULL
+            );''')
+    #TODO1: add all tables, one commit per adding one table
+    #TODO4: (optional for this task) add foreign keys
     conn.commit()    
     conn.close() 
     
