@@ -1,4 +1,5 @@
 import sqlite3
+from os import remove
 
 def create_tables():
     conn = sqlite3.connect('railways.db')
@@ -20,34 +21,16 @@ def create_tables():
             );''')
     #TODO1: add all tables, one commit per adding one table
     #TODO4: (optional for this task) add foreign keys
-    conn.commit() 
-    
-    conn.execute('''CREATE TABLE genders
-            (
-            gender_id INTEGER PRIMARY KEY NOT NULL,
-            gender_name TEXT NOT NULL
-            );''')
-    #TODO1: add all tables, one commit per adding one table
-    #TODO4: (optional for this task) add foreign keys
-    conn.commit()    
-    conn.close() 
-    
-    
+    conn.commit()     
 
-def fill_client():
+
+def fill_clients():
     conn = sqlite3.connect('railways.db')
-    conn.execute('''insert into client(username) values('visuly');''')
-    conn.execute('''insert into client(username) values('dotatk');''')
-    conn.execute('''insert into client(username) values('opa');''')
-    
-    conn.execute('''insert into client(password) values('route12');''')
-    conn.execute('''insert into client(password) values('rdnh1234');''')
-    conn.execute('''insert into client(password) values('yev45');''')
-    
-    conn.execute('''insert into client(email) values('visuly@gmail.com');''')
-    conn.execute('''insert into client(email) values('dotatk@mail.ru');''')
-    conn.execute('''insert into client(email) values('opa@yandex.ru');''')
-    
+    conn.execute('''insert into clients(client_id, username, password, email) 
+    values("1", "visuly", "route12", "visuly@gmail.com"), 
+    ("2", "dotatk", "rdnh1234", "dotatk@mail.ru"),
+    ("3", "opa", "yev45", "opa@yandex.ru");''')
+
     conn.commit()
     conn.close()
     
@@ -70,9 +53,12 @@ def check_tables():
     
 def db_init():    
     create_tables()
-    check_tables()
     fill_locomotive_types()
+    fill_clients()
+    check_tables()
+    
     #TODO2: fill all tables with separate functions, one commit per filling one table with a function; perform a check after each filling with a "select * below"
+remove('railways.db')#TODO5: uncomment
 
 from os.path import exists
 if not exists('railways.db'):
@@ -80,8 +66,7 @@ if not exists('railways.db'):
 #fill_locomotive_types()
 conn = sqlite3.connect('railways.db')
 cursor = conn.cursor()
-cursor.execute('''
-SELECT * FROM locomotive_types;''')
+cursor.execute('''SELECT * FROM clients;''')
 res = cursor.fetchall()
 for r in res:
     print(r)
