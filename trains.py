@@ -56,7 +56,7 @@ def create_tables():
         document_issue_place_id INTEGER PRIMARY KEY,
         organization TEXT,
         org_code TEXT,
-        geo_entity_id INTEGER NOT NULL
+        geo_entity_id TEXT
     )""")
     conn.commit()
     
@@ -133,6 +133,16 @@ def fill_geo_hierarchy():
     conn.commit()
     conn.close()
     
+def fill_document_issue_places():
+    conn = sqlite3.connect('railways.db')
+    conn.execute("""INSERT INTO document_issue_places (organization, org_code, geo_entity_id) VALUES
+    ("ОВД Фили Давыдково", "770038", 'Белореченск'),
+    ("МВД Белоруссии", "54544", 'Пинск'),
+    ("УВД Краснодара", "4235", 'Кореновск')""")
+    
+    conn.commit()
+    conn.close()
+    
 def fill_locomotive_types():
     conn = sqlite3.connect('railways.db')
     conn.execute('''insert into locomotive_types(type_name) values('�������');''')
@@ -157,6 +167,7 @@ def db_init():
     fill_client_document_types()
     fill_geo_entities()
     fill_geo_hierarchy()
+    fill_document_issue_places()
     check_tables()
     
     #TODO2: fill all tables with separate functions, one commit per filling one table with a function; perform a check after each filling with a "select * below"
@@ -168,7 +179,7 @@ if not exists('railways.db'):
 #fill_locomotive_types()
 conn = sqlite3.connect('railways.db')
 cursor = conn.cursor()
-cursor.execute('''SELECT * FROM geo_hierarchy;''')
+cursor.execute('''SELECT * FROM document_issue_places;''')
 res = cursor.fetchall()
 for r in res:
     print(r)
