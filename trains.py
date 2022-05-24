@@ -38,6 +38,12 @@ def create_tables():
         type_name TEXT
     )""")
     conn.commit()  
+    
+    conn.execute("""CREATE TABLE geo_entities(
+        geo_entity_id INTEGER PRIMARY KEY,
+        geo_entity_name TEXT
+    )""")
+    conn.commit()
     conn.close()  
 
 
