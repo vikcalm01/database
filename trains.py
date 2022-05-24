@@ -31,7 +31,14 @@ def create_tables():
     #TODO1: add all tables, one commit per adding one table
     #TODO4: (optional for this task) add foreign keys
     conn.commit()    
-    conn.close()     
+ 
+    
+    conn.execute("""CREATE TABLE client_document_types(
+        document_type_id INTEGER PRIMARY KEY,
+        type_name TEXT
+    )""")
+    conn.commit()  
+    conn.close()  
 
 
 def fill_clients():
