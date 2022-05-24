@@ -77,6 +77,29 @@ def fill_client_document_types():
     conn.commit()
     conn.close()
     
+    
+def fill_geo_entities():
+    conn = sqlite3.connect('railways.db')
+    conn.execute("""INSERT INTO geo_entities (geo_entity_name) VALUES
+    ('Земля'),
+    ('Европа'),
+    ('Россия'),
+    ('Краснодарский край'),
+    ('Анапа'),
+    ('Кореновск'),
+    ('Белореченск'),
+    ('Белоруссия'),
+    ('Брестская область'),
+    ('Брест'),
+    ('Пинск'),
+    ('Барановичи'),
+    ('Москва'),
+    ('Самара'),
+    ('Рязань'),
+    ('Рузаевка'),
+    ('Сызрань')""")
+    conn.commit()
+    
 def fill_locomotive_types():
     conn = sqlite3.connect('railways.db')
     conn.execute('''insert into locomotive_types(type_name) values('�������');''')
@@ -99,6 +122,7 @@ def db_init():
     fill_clients()
     fill_genders()
     fill_client_document_types()
+    fill_geo_entities()
     check_tables()
     
     #TODO2: fill all tables with separate functions, one commit per filling one table with a function; perform a check after each filling with a "select * below"
@@ -110,7 +134,7 @@ if not exists('railways.db'):
 #fill_locomotive_types()
 conn = sqlite3.connect('railways.db')
 cursor = conn.cursor()
-cursor.execute('''SELECT * FROM client_document_types;''')
+cursor.execute('''SELECT * FROM geo_entities;''')
 res = cursor.fetchall()
 for r in res:
     print(r)
