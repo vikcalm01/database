@@ -64,12 +64,12 @@ def create_tables():
         client_document_id INTEGER PRIMARY KEY,
         client_id INTEGER NOT NULL,
         document_type_id INTEGER NOT NULL,
-        document_number TEXT,
         family_name TEXT,
         given_name TEXT,
         patronymic TEXT,
         birthdate INTEGER,
         gender_id INTEGER NOT NULL,
+        document_issue_date INTEGER NOT NULL,
         document_issue_place_id INTEGER NOT NULL
     )""")
     conn.commit()
@@ -162,7 +162,20 @@ def fill_locomotive_types():
     conn.execute('''insert into locomotive_types(type_name) values('�������');''')
     conn.execute('''insert into locomotive_types(type_name) values('����������');''')
     conn.commit()
-    conn.close()     
+    conn.close()   
+    
+    
+def fill_client_documents():
+    conn = sqlite3.connect('railways.db')
+    conn.execute("""INSERT INTO client_documents(client_id, document_type_id, 
+                 family_name, given_name, patronymic, birthdate, gender_id, document_issue_date, document_issue_place_id) VALUES
+    (1, 1, 'Калмыкова', 'Виктория', 'Павловна', 1, 1, 1, 1),
+    (2, 1, 'Аграфенин', 'Никитий', 'Александрович', 1, 2, 1, 2),
+    (3, 2, 'Самойленко', 'Иван', 'Дмитриевич', 1, 3, 1, 2);
+""")
+    
+    conn.commit()
+    conn.close()  
 
 def check_tables():
     conn = sqlite3.connect('railways.db')
@@ -182,6 +195,7 @@ def db_init():
     fill_geo_entities()
     fill_geo_hierarchy()
     fill_document_issue_places()
+    fill_client_documents()
     check_tables()
     
     #TODO2: fill all tables with separate functions, one commit per filling one table with a function; perform a check after each filling with a "select * below"
