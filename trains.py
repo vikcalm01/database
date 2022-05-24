@@ -107,6 +107,23 @@ def fill_geo_entities():
     ('Рузаевка'),
     ('Сызрань')""")
     conn.commit()
+    conn.close()
+    
+def fill_geo_hierarchy():
+    conn = sqlite3.connect('railways.db')
+    conn.execute("""INSERT INTO geo_hierarchy(parent, child) VALUES
+    ('Земля', 'Европа'),
+    ('Европа', 'Россия'),
+    ('Россия', 'Краснодарский'),
+    ('Краснодарский край', 'Анапа'),
+    ('Краснодарский край', 'Белореченск'),
+    ('Краснодарский край', 'Кореновск'),
+    ('Белоруссия', 'тская область'),
+    ('Брестская область', 'Брест'),
+    ('Брестская область', 'Пинск')
+    """)
+    conn.commit()
+    conn.close()
     
 def fill_locomotive_types():
     conn = sqlite3.connect('railways.db')
@@ -131,6 +148,7 @@ def db_init():
     fill_genders()
     fill_client_document_types()
     fill_geo_entities()
+    fill_geo_hierarchy()
     check_tables()
     
     #TODO2: fill all tables with separate functions, one commit per filling one table with a function; perform a check after each filling with a "select * below"
