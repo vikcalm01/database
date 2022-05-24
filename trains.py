@@ -52,6 +52,14 @@ def create_tables():
     )""")
     conn.commit()
     
+    conn.execute("""CREATE TABLE document_issue_places (
+        document_issue_place_id INTEGER PRIMARY KEY,
+        organization TEXT,
+        org_code TEXT,
+        geo_entity_id INTEGER NOT NULL
+    )""")
+    conn.commit()
+    
     conn.close()  
 
 
