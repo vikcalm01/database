@@ -44,6 +44,16 @@ def fill_clients():
     conn.commit()
     conn.close()
     
+def fill_genders():
+    conn = sqlite3.connect('railways.db')
+    conn.execute('''insert into genders(gender_name) 
+    values("мужчина"), 
+    ("женщина"),
+    ("интерсекс");''')
+
+    conn.commit()
+    conn.close()
+    
     
 def fill_locomotive_types():
     conn = sqlite3.connect('railways.db')
@@ -77,7 +87,7 @@ if not exists('railways.db'):
 #fill_locomotive_types()
 conn = sqlite3.connect('railways.db')
 cursor = conn.cursor()
-cursor.execute('''SELECT * FROM clients;''')
+cursor.execute('''SELECT * FROM genders;''')
 res = cursor.fetchall()
 for r in res:
     print(r)
