@@ -44,6 +44,14 @@ def create_tables():
         geo_entity_name TEXT
     )""")
     conn.commit()
+    
+    conn.execute("""CREATE TABLE geo_hierarchy(
+        geo_hierarchy_entry INTEGER PRIMARY KEY,
+        parent INTEGER NOT NULL,
+        child INTEGER NOT NULL
+    )""")
+    conn.commit()
+    
     conn.close()  
 
 
@@ -134,7 +142,7 @@ if not exists('railways.db'):
 #fill_locomotive_types()
 conn = sqlite3.connect('railways.db')
 cursor = conn.cursor()
-cursor.execute('''SELECT * FROM geo_entities;''')
+cursor.execute('''SELECT * FROM geo_hierarchy;''')
 res = cursor.fetchall()
 for r in res:
     print(r)
