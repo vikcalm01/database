@@ -61,6 +61,15 @@ def fill_genders():
     conn.commit()
     conn.close()
     
+
+def fill_client_document_types():
+    conn = sqlite3.connect('railways.db')
+    conn.execute("""INSERT INTO client_document_types (type_name) VALUES
+    ('Паспорт'),
+    ('Загранпаспорт')""")
+
+    conn.commit()
+    conn.close()
     
 def fill_locomotive_types():
     conn = sqlite3.connect('railways.db')
@@ -83,6 +92,7 @@ def db_init():
     fill_locomotive_types()
     fill_clients()
     fill_genders()
+    fill_client_document_types()
     check_tables()
     
     #TODO2: fill all tables with separate functions, one commit per filling one table with a function; perform a check after each filling with a "select * below"
@@ -94,7 +104,7 @@ if not exists('railways.db'):
 #fill_locomotive_types()
 conn = sqlite3.connect('railways.db')
 cursor = conn.cursor()
-cursor.execute('''SELECT * FROM genders;''')
+cursor.execute('''SELECT * FROM client_document_types;''')
 res = cursor.fetchall()
 for r in res:
     print(r)
