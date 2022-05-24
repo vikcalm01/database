@@ -60,6 +60,20 @@ def create_tables():
     )""")
     conn.commit()
     
+    conn.execute("""CREATE TABLE client_documents(
+        client_document_id INTEGER PRIMARY KEY,
+        client_id INTEGER NOT NULL,
+        document_type_id INTEGER NOT NULL,
+        document_number TEXT,
+        family_name TEXT,
+        given_name TEXT,
+        patronymic TEXT,
+        birthdate INTEGER,
+        gender_id INTEGER NOT NULL,
+        document_issue_place_id INTEGER NOT NULL
+    )""")
+    conn.commit()
+    
     conn.close()  
 
 
@@ -179,7 +193,7 @@ if not exists('railways.db'):
 #fill_locomotive_types()
 conn = sqlite3.connect('railways.db')
 cursor = conn.cursor()
-cursor.execute('''SELECT * FROM document_issue_places;''')
+cursor.execute('''SELECT * FROM client_documents;''')
 res = cursor.fetchall()
 for r in res:
     print(r)
